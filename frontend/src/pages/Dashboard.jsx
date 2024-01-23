@@ -38,17 +38,19 @@ const Dashboard = () => {
         setSearchText={setSearchText}
         allUsers={allUsers}
       />
-      {allUser.map((user) => {
+  
+      {allUser.length > 0 ?  allUser.map((user) => {
         return (
           <UserCard
-          getUserBalance={getUserBalance}
+            getUserBalance={getUserBalance}
             key={user._id}
             userId={user._id}
-            userName={user.firstName}
+            userName={`${user.firstName} ${user.lastName}`}
             icon={user.userName}
+            image={user.profilePic}
           />
         );
-      })}
+      }) : <div className="text-center mt-20 text-xl">No Users found</div> }
     </div>
   );
 };

@@ -19,6 +19,10 @@ const User = new mongoose.Schema({
         type : String,
         required : true
     },
+    profilePic : {
+        type : String,
+        required :true
+    },
     courses : [
         {
             type : mongoose.Schema.Types.ObjectId,

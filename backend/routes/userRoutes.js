@@ -46,6 +46,7 @@ router.post("/signup", async (req, res) => {
     firstName,
     lastName,
     password: hashedPassword,
+    profilePic :  `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
     balance :  Math.floor(1 + Math.random() * 10000)
   });
 
@@ -130,7 +131,7 @@ router.get("/users", auth, async (req, res) => {
     $expr: {
       $regexMatch: {
         input: {
-          $concat: ["$firstName", "$lastName"],
+          $concat: ["$firstName", "$lastName" , "$userName"],
         },
         regex: filter || "",
         options: "i",
@@ -145,6 +146,7 @@ router.get("/users", auth, async (req, res) => {
     success: true,
     message: "Books fetched successfully",
     users,
+    
   });
 });
 
