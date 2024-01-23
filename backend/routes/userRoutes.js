@@ -123,7 +123,7 @@ router.post("/signin", async (req, res) => {
 });
 
 router.get("/users", auth, async (req, res) => {
-  //   {userName : {$ne : req.userName}} ,  //now logged in user won't visible in the userlist
+  //   {userName : {$ne : req.userName}} ,  //now logged in user won't be visible in the userlist
   console.log(req.user.userName , "username");
   const { filter } = req.query;
   console.log(filter);

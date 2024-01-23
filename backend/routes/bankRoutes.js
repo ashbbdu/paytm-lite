@@ -51,13 +51,64 @@ router.post("/transfer", auth, async (req, res) => {
     { balance: updateReciverBalance }
   )
 
-
-
   if (updateSender && updateReciever) {
     return res.status(200).json({
       message: "Funds transferred successfully",
     });
   }
+
+// Here Start
+
+// router.post("/transfer", auth, async (req, res) => {
+// const session = await mongoose.startSession()
+// session.startTransaction()
+//     const { id } = req.user;
+//     const { recieversId, amount } = req.body;
+  
+//     const getBalance = await Bank.findOne({ userId: id }).session(session)
+//     console.log(getBalance.balance, "getBalance");
+//     const recBalance = await Bank.findOne({ userId: recieversId }).session(session)
+  
+  
+//     if (id === recieversId) {
+//       return res.status(400).json({
+//         message: "You can not transfer balance to your own account",
+//       });
+//     }
+  
+//     if (getBalance.balance < amount) {
+//       return res.status(400).json({
+//         message: "Insufficient Balance",
+//       });
+//     }
+  
+//     const updateSenderBalance = getBalance.balance - amount;
+//     const updateSender = await Bank.findOneAndUpdate(
+//       { userId: id },
+//       { balance: updateSenderBalance }
+//     ).session(session)
+  
+    
+//     const updateReciverBalance = recBalance.balance + amount;
+    
+  
+//     const updateReciever = await Bank.findOneAndUpdate(
+//       { userId: recieversId },
+//       { balance: updateReciverBalance }
+//     ).session(session)
+  
+//     await session.commitTransaction();
+  
+    // if (updateSender && updateReciever) {
+    //   return res.status(200).json({
+    //     message: "Funds transferred successfully",
+    //   });
+    // }
+    
+
+// Here End
+
+
 
 //   -----------------------
 
