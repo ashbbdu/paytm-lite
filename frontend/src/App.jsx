@@ -10,12 +10,14 @@ import Loading from "./components/Loading";
 import About from "./pages/About";
 import HelpSection from "./pages/HelpSection";
 import ReferAndEarn from "./pages/ReferAndEarn";
+import { Suspense } from "react";
 
 function App() {
   return (
     <div className="h-[100vh] bg-slate-200">
-      <Loading />
+      {/* <Loading /> */}
       <Toaster position="top-center" reverseOrder={false} />
+      <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -25,6 +27,7 @@ function App() {
         <Route path="/help" element={<PrivateRoute><HelpSection /></PrivateRoute>} />
         <Route path="/refer" element={<PrivateRoute><ReferAndEarn /></PrivateRoute>} />
       </Routes>
+      </Suspense>
   
       
     </div>

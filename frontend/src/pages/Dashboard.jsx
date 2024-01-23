@@ -12,15 +12,16 @@ import { bankBalance } from "../services/operations/bankAPI";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { user  } = useSelector(state => state.user)
+  const { balance } = useSelector(state => state.bank)
+  console.log(balance);
   const token = localStorage.getItem("token");
   const [searchText, setSearchText] = useState("");
 
   const allUsers =  () => {
-        dispatch(users(searchText , token))
-
+  
   };
   useEffect(() => {
-    allUsers();
+      allUsers();
   }, [searchText]);
 
   const getUserBalance = async () => {
@@ -28,8 +29,16 @@ const Dashboard = () => {
 
   }
   useEffect(() => {
-     getUserBalance();
+    if(balance !== null) {
+      getUserBalance();
+    }  
   } ,[])
+
+  useEffect(() => {
+      if(user.length <= 0) {
+        allUsers()
+      }
+  })
 
   return (
     <div className="px-2">
@@ -40,7 +49,7 @@ const Dashboard = () => {
         allUsers={allUsers}
       />
   
-      {user.length > 0 ?  user.map((user , index) => {
+      {user?.length > 0 ?  user?.map((user , index) => {
         return (
           <UserCard
             getUserBalance={getUserBalance}

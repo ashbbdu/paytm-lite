@@ -1,18 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { setToken, setUser } from '../store/slices/userSlice'
 import { toast } from 'react-hot-toast'
+import { setBalance } from '../store/slices/bankSlice'
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
     const { profilePic } = JSON.parse(localStorage.getItem("userDetails"))
     const handleLogout = () => {
       dispatch(setToken(null))
       dispatch(setUser(null))
+      dispatch(setBalance(null))
       localStorage.removeItem("token")
       localStorage.removeItem("userDetails")
       toast.success("Logged Out")
+      navigate("/")
     }
   return (
     <div className='flex items-center justify-between bg-white px-2 py-4 border border-b-slate-300'>
