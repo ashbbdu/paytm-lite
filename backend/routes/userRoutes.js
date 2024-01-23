@@ -74,23 +74,24 @@ router.post("/signin", async (req, res) => {
   try {
     const body = req.body;
     const { userName, password } = req.body;
+    console.log(userName , password , "data");
     const { success } = loginSchema.safeParse(body);
     if (!success) {
-      res.json({
+     return res.status(400).json({
         message: "Invalid Credential",
       });
     }
 
     const existUser = await User.findOne({ userName });
     if (!existUser) {
-      res.json({
+    return  res.status(400).json({
         message: "User does not exist",
       });
     }
 
     const validPassword = await bcrypt.compare(password, existUser.password);
     if (!validPassword) {
-      res.json({
+     return res.status(400).json({
         message: "Invalid Password",
       });
     }

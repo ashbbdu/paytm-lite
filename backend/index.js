@@ -5,8 +5,8 @@ const bankRoutes = require("./routes/bankRoutes")
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connect } = require("./database");
-app.use(bodyParser());
-app.use(cors())
+app.use(express.json());
+app.use(cors({credentials: true, origin: true}))
 const PORT = 4000;
 
 
