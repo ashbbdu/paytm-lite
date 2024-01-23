@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { setToken, setUser } from '../store/slices/userSlice'
 import { toast } from 'react-hot-toast'
@@ -20,7 +20,20 @@ const Navbar = () => {
             <h2>Payments App</h2>
         </div>
         <div className='flex items-center gap-4'>
-         
+          <ul className='flex items-center gap-4'>
+          <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/help">Help</Link>
+            </li>
+            <li>
+              <Link to="/refer">Refer and Earn</Link>
+            </li>
+          </ul>
             <div onClick={handleLogout} className='cursor-pointer'>
             <h2>Logout</h2>
             </div>

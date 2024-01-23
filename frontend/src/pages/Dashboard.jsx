@@ -16,9 +16,8 @@ const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
 
   const allUsers =  () => {
-      if(user >= 0) {
         dispatch(users(searchText , token))
-      }
+
   };
   useEffect(() => {
     allUsers();

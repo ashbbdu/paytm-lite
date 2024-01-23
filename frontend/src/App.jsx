@@ -7,9 +7,11 @@ import Signup from "./pages/Signup";
 import PrivateRoute from "./PrivateRoute";
 import { useSelector } from "react-redux"
 import Loading from "./components/Loading";
+import About from "./pages/About";
+import HelpSection from "./pages/HelpSection";
+import ReferAndEarn from "./pages/ReferAndEarn";
 
 function App() {
-  const { loading } = useSelector(state => state.user)
   return (
     <div className="h-[100vh] bg-slate-200">
       <Loading />
@@ -19,6 +21,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route path="/about" element={<PrivateRoute><About /></PrivateRoute>} />
+        <Route path="/help" element={<PrivateRoute><HelpSection /></PrivateRoute>} />
+        <Route path="/refer" element={<PrivateRoute><ReferAndEarn /></PrivateRoute>} />
       </Routes>
   
       
