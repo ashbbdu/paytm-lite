@@ -19,9 +19,20 @@ const Dashboard = () => {
   useEffect(() => {
     allUsers();
   }, [searchText]);
+
+
+  const [userBalance , setUserBalace] = useState(0);
+  const getUserBalance = async () => {
+      const balance = await axios.get(BASE_URL + "bank/balance" , {headers : {"Authorization" : `Bearer ${token}`}})
+      setUserBalace(balance.data.balance)
+  }
+  useEffect(() => {
+     getUserBalance();
+  } ,[])
+
   return (
     <div className="px-2">
-      <UserDetails />
+      <UserDetails  userBalance={userBalance} />
       <SearchComponent
         searchText={searchText}
         setSearchText={setSearchText}
@@ -30,6 +41,7 @@ const Dashboard = () => {
       {allUser.map((user) => {
         return (
           <UserCard
+          getUserBalance={getUserBalance}
             key={user._id}
             userId={user._id}
             userName={user.firstName}

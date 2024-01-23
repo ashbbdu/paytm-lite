@@ -28,14 +28,14 @@ router.post("/signup", async (req, res) => {
   const { success } = userSchema.safeParse(body);
   console.log(success, "succ");
   if (!success) {
-    return res.json({
+    return res.status(404).json({
       message: "Invalid inputs",
     });
   }
 
   const existingUser = await User.findOne({ userName });
   if (existingUser) {
-    return res.json({
+    return res.status(404).json({
       message: "User already exist",
     });
   }
@@ -122,9 +122,11 @@ router.post("/signin", async (req, res) => {
 });
 
 router.get("/users", auth, async (req, res) => {
+  //   {userName : {$ne : req.userName}} ,  //now logged in user won't visible in the userlist
+  console.log(req.user.userName , "username");
   const { filter } = req.query;
   console.log(filter);
-  const users = await User.find({
+  const users = await User.find({ userName : {$ne : req.user.userName},
     $expr: {
       $regexMatch: {
         input: {

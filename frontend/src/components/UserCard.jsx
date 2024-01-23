@@ -3,15 +3,7 @@ import React from 'react'
 import { BASE_URL } from '../services/api';
 import { PaymentModal } from './PaymentModal';
 
-const UserCard = ({userName , icon , userId}) => {
-
-    // const handleSendPayment = async () => {
-    //     console.log(userId , "userId");
-    //     const sendPayment = await axios.post(BASE_URL + "bank/transfer" , {
-    //         to : 
-
-    //     } ,  { headers: { Authorization: `Bearer ${token}` } })
-    // }
+const UserCard = ({userName , icon , userId , getUserBalance}) => {
     
   return (
     <>
@@ -26,7 +18,7 @@ const UserCard = ({userName , icon , userId}) => {
             {/* <button 
             // onClick={handleSendPayment}
              className='bg-black text-white px-3 py-2 text-sm rounded-md'>Send Money</button> */}
-               <PaymentModal  userId={userId} userName={userName} icon={icon}/>
+               <PaymentModal  userId={userId} userName={userName} icon={icon} getUserBalance={getUserBalance}/>
         </div>
       
     </div>
