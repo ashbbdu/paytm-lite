@@ -5,9 +5,12 @@ import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../services/api";
 import { ValidationSchema } from "../validationSchema";
+import { useDispatch } from 'react-redux'
+import { signup } from "../services/operations/userApi";
 
 const Signup = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -16,20 +19,8 @@ const Signup = () => {
       password: "",
     },
     validationSchema: ValidationSchema,
-    onSubmit: async (values) => {
-      try {
-        const data = await axios.post(BASE_URL + "user/signup", {
-          ...values,
-        });
-        console.log(data , "data");
-        if (data.status === 200) {
-          toast.success(data.data.message);
-          navigate("/");
-        }
-      } catch (error) {
-        console.log(error , "error");
-        toast.error(error.response.data.message);
-      }
+    onSubmit:  (values) => {
+      dispatch(signup({...values} , navigate));
     },
   });
   const { errors, touched } = formik;

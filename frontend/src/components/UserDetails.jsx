@@ -1,9 +1,11 @@
 import React, { memo } from 'react'
-const UserDetails = memo(({userBalance}) => {
-
+import { useSelector } from "react-redux"
+const UserDetails = memo(() => {
+const { bankBalance } = useSelector(state => state.bank)
+console.log(bankBalance , "bankbal");
   return (
     <div>
-        Your current balance is : $ {userBalance}
+        Your current balance is : $ {bankBalance}
     </div>
   )
 })

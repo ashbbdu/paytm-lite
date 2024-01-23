@@ -1,6 +1,7 @@
 import React from 'react'
 
 const SearchComponent = ({searchText , setSearchText , allUsers}) => {
+
     const handleChange = async (e) => {
         setSearchText(e.target.value);
     }

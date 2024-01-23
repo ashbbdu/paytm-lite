@@ -4,27 +4,29 @@ import SearchComponent from "../components/SearchComponent";
 import UserCard from "../components/UserCard";
 import UserDetails from "../components/UserDetails";
 import { BASE_URL } from "../services/api";
+import { useDispatch , useSelector } from "react-redux"
+import { users } from "../services/operations/usersAPI";
+import { bankBalance } from "../services/operations/bankAPI";
+
 
 const Dashboard = () => {
-  const [allUser, setAllUser] = useState([]);
+  const dispatch = useDispatch();
+  const { user  } = useSelector(state => state.user)
   const token = localStorage.getItem("token");
   const [searchText, setSearchText] = useState("");
-  const allUsers = async () => {
-    const users = await axios.get(
-      BASE_URL + `user/users?filter=${searchText}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setAllUser(users.data.users);
+
+  const allUsers =  () => {
+      if(user >= 0) {
+        dispatch(users(searchText , token))
+      }
   };
   useEffect(() => {
     allUsers();
   }, [searchText]);
 
-
-  const [userBalance , setUserBalace] = useState(0);
   const getUserBalance = async () => {
-      const balance = await axios.get(BASE_URL + "bank/balance" , {headers : {"Authorization" : `Bearer ${token}`}})
-      setUserBalace(balance.data.balance)
+    dispatch(bankBalance(token))
+
   }
   useEffect(() => {
      getUserBalance();
@@ -32,14 +34,14 @@ const Dashboard = () => {
 
   return (
     <div className="px-2">
-      <UserDetails  userBalance={userBalance} />
+      <UserDetails  />
       <SearchComponent
         searchText={searchText}
         setSearchText={setSearchText}
         allUsers={allUsers}
       />
   
-      {allUser.length > 0 ?  allUser.map((user) => {
+      {user.length > 0 ?  user.map((user , index) => {
         return (
           <UserCard
             getUserBalance={getUserBalance}

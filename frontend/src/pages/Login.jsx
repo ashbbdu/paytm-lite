@@ -1,13 +1,14 @@
-import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { toast } from "react-hot-toast";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../services/api";
 import { loginSchema } from "../validationSchema";
+import { useDispatch } from 'react-redux'
+import { login } from "../services/operations/userApi";
+
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -16,20 +17,7 @@ const Login = () => {
     validationSchema : loginSchema ,
     enableReinitialize :true,
     onSubmit: async (values) => {
-      console.log(values, "values");
-      try {
-        const data = await axios.post(BASE_URL + "user/signin", {
-          ...values,
-        });
-        if (data.status === 200) {
-          localStorage.setItem("token" , data.data.token)
-          localStorage.setItem("userDetails" , JSON.stringify(data.data.user))
-          toast.success(data.data.message);
-          navigate("/dashboard");
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
+      dispatch(login({...values} , navigate))
     },
   });
   const {errors , touched} = formik;
