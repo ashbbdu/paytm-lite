@@ -127,7 +127,7 @@ router.get("/users", auth, async (req, res) => {
   console.log(req.user.userName , "username");
   const { filter } = req.query;
   console.log(filter);
-  const users = await User.find({ userName : {$ne : req.user.userName},
+  const users = await User.find({ userName : {$ne : req.user.userName} , 
     $expr: {
       $regexMatch: {
         input: {
@@ -137,7 +137,7 @@ router.get("/users", auth, async (req, res) => {
         options: "i",
       },
     },
-  })
+  } )
     .limit()
     .sort({ createdAt: -1 })
     .exec();
