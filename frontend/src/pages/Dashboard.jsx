@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import SearchComponent from "../components/SearchComponent";
 import UserCard from "../components/UserCard";
 import UserDetails from "../components/UserDetails";
-import { BASE_URL } from "../services/api";
 import { useDispatch , useSelector } from "react-redux"
 import { users } from "../services/operations/usersAPI";
 import { bankBalance } from "../services/operations/bankAPI";
@@ -15,10 +14,12 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
   const [searchText, setSearchText] = useState("");
 
+
+ 
   const allUsers =  () => {
-      if(user >= 0) {
-        dispatch(users(searchText , token))
-      }
+
+ dispatch(users(searchText , token))
+    
   };
   useEffect(() => {
     allUsers();

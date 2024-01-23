@@ -26,7 +26,8 @@ const Signup = () => {
   const { errors, touched } = formik;
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <div className="bg-white flex items-center justify-center flex-col px-4 py-6 rounded-md">
+      <div className="bg-white flex items-center justify-center flex-col px-6 py-6 rounded-md">
+      <div className="h-[500px]">
         <h2 className="text-center text-black text-3xl font-bold">Sign Up</h2>
         <p className="text-slate-600 mt-2">
           Enter your information to create your account
@@ -112,6 +113,7 @@ const Signup = () => {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

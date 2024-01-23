@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { setToken, setUser } from '../store/slices/userSlice'
 import { toast } from 'react-hot-toast'
+import { setBalance } from '../store/slices/bankSlice'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -10,6 +11,7 @@ const Navbar = () => {
     const handleLogout = () => {
       dispatch(setToken(null))
       dispatch(setUser(null))
+      dispatch(setBalance(null))
       localStorage.removeItem("token")
       localStorage.removeItem("userDetails")
       toast.success("Logged Out")

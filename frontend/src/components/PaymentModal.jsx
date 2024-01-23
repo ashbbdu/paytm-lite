@@ -1,35 +1,16 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { toast } from "react-hot-toast";
-import { BASE_URL } from "../services/api";
+import { useDispatch } from "react-redux"
 import { MdOutlineCancel } from "react-icons/md";
+import { transferBalance } from "../services/operations/bankAPI";
 
 export function PaymentModal({ userId, userName, icon ,getUserBalance }) {
+  const dispatch = useDispatch()
   const token = localStorage.getItem("token");
   const [showModal, setShowModal] = React.useState(false);
   const [amount, setAmount] = useState(0);
   const handleBlanceTransfer = async () => {
-    try {
-      if (amount > 0) {
-        const sendMoney = await axios.post(
-          BASE_URL + "bank/transfer",
-          {
-            recieversId: userId,
-            amount: parseInt(amount),
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        if (sendMoney.status === 200) {
-          setShowModal(false);
-          getUserBalance()
-          toast.success(sendMoney.data.message);
-        }
-      } else {
-        toast.error("Amount should be greater than 0");
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+    dispatch(transferBalance(userId , amount , setAmount , setShowModal ,getUserBalance , token))
   };
   return (
     <>

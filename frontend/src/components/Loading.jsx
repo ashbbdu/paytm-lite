@@ -6,7 +6,7 @@ const Loading = () => {
   return (
     loading &&  <div
     role="status"
-    className="bg-red-300 h-full absolute w-full bg-[rgba(0,0,0,0.5)]"
+    className=" h-full absolute w-full bg-[rgba(0,0,0,0.5)]"
   >
     <div className="flex items-center justify-center h-full">
       <svg

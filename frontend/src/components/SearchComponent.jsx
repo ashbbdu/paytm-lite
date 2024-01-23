@@ -8,7 +8,7 @@ const SearchComponent = ({searchText , setSearchText , allUsers}) => {
   return (
     <div>
         <h2>Users</h2>
-        <input className='w-full h-9 px-2 my-1 rounded-md' value={searchText} onChange={handleChange} placeholder="Search Users..." />
+        <input className='w-full h-9 px-2 my-1 rounded-md border border-slate-300' value={searchText} onChange={handleChange} placeholder="Search Users..." />
     </div>
   )
 }
